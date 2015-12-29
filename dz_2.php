@@ -13,7 +13,7 @@ echo '<br><br>';
 
 define("CITY", "Москва");
 if (defined("CITY")) {
-   echo CITY;
+  echo CITY;
 }
 else {
     echo '<br>Константа не существует';
