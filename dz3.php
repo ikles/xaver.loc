@@ -56,10 +56,3 @@ $maxmonth3 = substr($date[3], 3, 2);
 $maxmonth4 = substr($date[4], 3, 2);
 
 echo "Наибольший месяц в массиве: ".max($maxmonth0,$maxmonth1,$maxmonth2,$maxmonth3,$maxmonth4)."\n" ;
-//echo max(6, 236, 3, 235)."\n" ; //максимальное число
-
-print_r($date);
-
-$timestr = strtotime('$date0');//нормальную дату преобразовываем в строку
-
-echo $timestr;
