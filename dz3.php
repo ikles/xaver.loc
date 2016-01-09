@@ -30,29 +30,43 @@ $i++;
 print_r($date);
 
 $timestamp = $date[0];
-$date[0] =  date('d.m.y H:i:s',$timestamp)."\n";
+$date0 =  date('d.m.y H:i:s',$timestamp)."\n";
 $timestamp2 = $date[1];
-$date[1] =  date('d.m.y H:i:s',$timestamp2)."\n";
+$date1 =  date('d.m.y H:i:s',$timestamp2)."\n";
 $timestamp3 = $date[2];
-$date[2] =  date('d.m.y H:i:s',$timestamp3)."\n";
+$date2 =  date('d.m.y H:i:s',$timestamp3)."\n";
 $timestamp4 = $date[3];
-$date[3] =  date('d.m.y H:i:s',$timestamp4)."\n";
+$date3 =  date('d.m.y H:i:s',$timestamp4)."\n";
 $timestamp5 = $date[4];
-$date[4] =  date('d.m.y H:i:s',$timestamp5)."\n";
+$date4 =  date('d.m.y H:i:s',$timestamp5)."\n";
 print_r($date);
 
-$minday0 = substr($date[0], 0, 2);
-$minday1 = substr($date[1], 0, 2);
-$minday2 = substr($date[2], 0, 2);
-$minday3 = substr($date[3], 0, 2);
-$minday4 = substr($date[4], 0, 2);
+$minday0 = substr($date0, 0, 2);
+$minday1 = substr($date1, 0, 2);
+$minday2 = substr($date2, 0, 2);
+$minday3 = substr($date3, 0, 2);
+$minday4 = substr($date4, 0, 2);
 
 echo "Наименьший день в массиве: ".min($minday0,$minday1,$minday2,$minday3,$minday4)."\n" ; //минимальный день
 
-$maxmonth0 = substr($date[0], 3, 2);
-$maxmonth1 = substr($date[1], 3, 2);
-$maxmonth2 = substr($date[2], 3, 2);
-$maxmonth3 = substr($date[3], 3, 2);
-$maxmonth4 = substr($date[4], 3, 2);
+$maxmonth0 = substr($date0, 3, 2);
+$maxmonth1 = substr($date1, 3, 2);
+$maxmonth2 = substr($date2, 3, 2);
+$maxmonth3 = substr($date3, 3, 2);
+$maxmonth4 = substr($date4, 3, 2);
 
 echo "Наибольший месяц в массиве: ".max($maxmonth0,$maxmonth1,$maxmonth2,$maxmonth3,$maxmonth4)."\n" ;
+
+sort($date);
+print_r($date);
+echo "\n";
+
+$selected = array_pop($date);
+echo $selected."\n";
+print_r($date);
+
+$selected = date('d.m.y H:i:s',$selected);
+echo $selected."\n";
+echo "Мой часовой пояс: ".date_default_timezone_get()."\n";
+date_default_timezone_set('America/New_York');
+echo "Новый часовой пояс: ".date_default_timezone_get()."\n";
