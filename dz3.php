@@ -20,42 +20,29 @@ error_reporting(E_ERROR | E_NOTICE | E_PARSE | E_WARNING);
 ini_set('display_errors', 1);
 $date = array();
 $i=0;
-while ($i<5)
-{
-$a = mt_rand(1, 12);
-$b = mt_rand(1, 12);   
-$date[] = mktime(0,0,0,$a,$b,2016);
-$i++;
+
+while ($i++ < 5) {
+    $date[] = mt_rand(0, time());
 }
+
 print_r($date);
 
-$timestamp = $date[0];
-$date0 =  date('d.m.y H:i:s',$timestamp)."\n";
-$timestamp2 = $date[1];
-$date1 =  date('d.m.y H:i:s',$timestamp2)."\n";
-$timestamp3 = $date[2];
-$date2 =  date('d.m.y H:i:s',$timestamp3)."\n";
-$timestamp4 = $date[3];
-$date3 =  date('d.m.y H:i:s',$timestamp4)."\n";
-$timestamp5 = $date[4];
-$date4 =  date('d.m.y H:i:s',$timestamp5)."\n";
-print_r($date);
-
-$minday0 = substr($date0, 0, 2);
-$minday1 = substr($date1, 0, 2);
-$minday2 = substr($date2, 0, 2);
-$minday3 = substr($date3, 0, 2);
-$minday4 = substr($date4, 0, 2);
+$minday0 = date('d', $date[0]);
+$minday1 = date('d', $date[2]);
+$minday2 = date('d', $date[2]);
+$minday3 = date('d', $date[3]);
+$minday4 = date('d', $date[4]);
 
 echo "Наименьший день в массиве: ".min($minday0,$minday1,$minday2,$minday3,$minday4)."\n" ; //минимальный день
 
-$maxmonth0 = substr($date0, 3, 2);
-$maxmonth1 = substr($date1, 3, 2);
-$maxmonth2 = substr($date2, 3, 2);
-$maxmonth3 = substr($date3, 3, 2);
-$maxmonth4 = substr($date4, 3, 2);
+$maxmonth0 = date('m', $date[0]);
+$maxmonth1 = date('m', $date[1]);
+$maxmonth2 = date('m', $date[2]);
+$maxmonth3 = date('m', $date[3]);
+$maxmonth4 = date('m', $date[4]);
 
-echo "Наибольший месяц в массиве: ".max($maxmonth0,$maxmonth1,$maxmonth2,$maxmonth3,$maxmonth4)."\n" ;
+
+echo "Наибольший месяц в массиве: ".max($maxmonth0,$maxmonth1,$maxmonth2,$maxmonth3,$maxmonth4)."\n"; 
 
 sort($date);
 print_r($date);
