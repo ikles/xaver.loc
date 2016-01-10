@@ -19,30 +19,21 @@
 error_reporting(E_ERROR | E_NOTICE | E_PARSE | E_WARNING);
 ini_set('display_errors', 1);
 $date = array();
-$i=0;
 
+$i=0;
 while ($i++ < 5) {
     $date[] = mt_rand(0, time());
+    $month[] = date('m', $date[$i-1]);
+    $day[] = date('d', $date[$i-1]);
 }
 
 print_r($date);
+print_r($month);
+print_r($day);
 
-$minday0 = date('d', $date[0]);
-$minday1 = date('d', $date[2]);
-$minday2 = date('d', $date[2]);
-$minday3 = date('d', $date[3]);
-$minday4 = date('d', $date[4]);
+echo "Наименьший день в массиве: ".min($day[0],$day[1],$day[2],$day[3],$day[4])."\n" ; //минимальный день
 
-echo "Наименьший день в массиве: ".min($minday0,$minday1,$minday2,$minday3,$minday4)."\n" ; //минимальный день
-
-$maxmonth0 = date('m', $date[0]);
-$maxmonth1 = date('m', $date[1]);
-$maxmonth2 = date('m', $date[2]);
-$maxmonth3 = date('m', $date[3]);
-$maxmonth4 = date('m', $date[4]);
-
-
-echo "Наибольший месяц в массиве: ".max($maxmonth0,$maxmonth1,$maxmonth2,$maxmonth3,$maxmonth4)."\n"; 
+echo "Наибольший месяц в массиве: ".max($month[0],$month[2],$month[2],$month[3],$month[4])."\n"; 
 
 sort($date);
 print_r($date);
