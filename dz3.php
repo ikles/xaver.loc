@@ -45,6 +45,6 @@ print_r($date);
 
 $selected = date('d.m.y H:i:s',$selected);
 echo $selected."\n";
-echo "Мой часовой пояс: ".date_default_timezone_get()."\n";
+echo "Мой часовой пояс: ".date_default_timezone_get()." Мое время: ".date('H:i:s')."\n";
 date_default_timezone_set('America/New_York');
-echo "Новый часовой пояс: ".date_default_timezone_get()."\n";
+echo "Новый часовой пояс: ".date_default_timezone_get()." Новое время: ".date('H:i:s');
