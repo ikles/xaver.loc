@@ -43,8 +43,7 @@ $selected = array_pop($date);
 echo $selected."\n";
 print_r($date);
 
-$selected = date('d.m.y H:i:s',$selected);
-echo $selected."\n";
-echo "Мой часовой пояс: ".date_default_timezone_get()." Мое время: ".date('H:i:s')."\n";
+date_default_timezone_set('Asia/Novosibirsk');
+echo "Мой часовой пояс: ".date_default_timezone_get()." Мое время: ".date('d.m.y H:i:s', $selected)."\n";
 date_default_timezone_set('America/New_York');
-echo "Новый часовой пояс: ".date_default_timezone_get()." Новое время: ".date('H:i:s');
+echo "Новый часовой пояс: ".date_default_timezone_get()." Новое время: ".date('d.m.y H:i:s', $selected);
