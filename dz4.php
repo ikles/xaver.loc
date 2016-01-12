@@ -41,19 +41,18 @@ function parse_basket($basket){//сюда будет передаваться м
     global $product_out;
     global $discount3;
     global $disc;
-    
-    echo '<table>';
+    global $count_basket;
     
     foreach($basket as $name => $params){//внутри $params оказывается массив, тот который вложенный в основной массив
-        echo "<b>".$name."</b><br>";
-        echo "Цена за единицу товара: ".$params['цена']." руб.";//тут идет обращение уже к этому массиву по старым ключам
-        echo " | Количество заказано: ".$params['количество заказано'];
-        echo " | Остаток на складе: ".$params['осталось на складе'].""; 
-        echo " | Дисконт: ".$params['diskont']."<br><br>";  
+        echo "<tr><td>".$name."</td>";
+        echo "<td>".$params['цена']." руб.</td>";//тут идет обращение уже к этому массиву по старым ключам
+        echo "<td>".$params['количество заказано']."</td>";
+        echo "<td>".$params['осталось на складе']."</td>"; 
+        echo "<td>".$params['diskont']."</td></tr>";  
         $info['количество заказано'] = $info['количество заказано'] + $params['количество заказано'];      
         $info['осталось на складе'] = $info['осталось на складе'] + $params['осталось на складе'];      
         if($params['осталось на складе'] == 0){
-            $product_out = 'Нужного товара не оказалось на складе: <b>'.$name.'</b>';
+            $product_out = '<h2>Уведомления:</h2>Нужного товара не оказалось на складе: <b>'.$name.'</b>';
         }        
         $price = $price+$params['цена']*$params['количество заказано'];       
         $par_disc = $params['diskont'];
@@ -83,13 +82,24 @@ function parse_basket($basket){//сюда будет передаваться м
             }
         }      
     }
-    echo '</table>';
-    echo "Итого:<br> Всего было заказано: ".count($basket)." наименований товара<br>";
+    $count_basket = count($basket);
 }
+echo '<table border=1>
+        <tr>
+            <td>Наименование</td>
+            <td>Цена за единицу товара</td>
+            <td>Количество заказано</td>
+            <td>Остаток на складе</td>
+            <td>Дисконт</td>
+        </tr>
+        ';
 parse_basket($bd);
+echo '</table>';
+
 if($product_out){
     echo $product_out."<br>";
 }
+echo "<h2>Итого:</h2> Всего было заказано: ".$count_basket." наименований товара<br>";
 echo " Общее количество заказаных товаров: ".$info['количество заказано']."<br>";
 echo " Общее количество товара на складе: ".$balance."<br>";
 echo " Сумма заказа: ".$price." руб.<br>";
