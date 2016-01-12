@@ -41,10 +41,6 @@ function parse_basket($basket){//сюда будет передаваться м
     global $discount3;
     global $disc;
     global $count_basket;
-    global $params_price;
-    global $params_am_ord;
-    global $params_balance;
-    global $params_diskont;
     foreach($basket as $name => $params){//внутри $params оказывается массив, тот который вложенный в основной массив
         $params_price = $params['цена'];
         $params_am_ord = $params['количество заказано'];
