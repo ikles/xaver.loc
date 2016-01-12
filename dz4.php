@@ -41,6 +41,9 @@ function parse_basket($basket){//сюда будет передаваться м
     global $product_out;
     global $discount3;
     global $disc;
+    
+    echo '<table>';
+    
     foreach($basket as $name => $params){//внутри $params оказывается массив, тот который вложенный в основной массив
         echo "<b>".$name."</b><br>";
         echo "Цена за единицу товара: ".$params['цена']." руб.";//тут идет обращение уже к этому массиву по старым ключам
@@ -54,21 +57,33 @@ function parse_basket($basket){//сюда будет передаваться м
         }        
         $price = $price+$params['цена']*$params['количество заказано'];       
         $par_disc = $params['diskont'];
-        $disc = $total_price*substr($par_disc,7,1)/10;   
+        
+        //Скидка 30%
+        if($name == 'игрушка детская велосипед' && $params['количество заказано'] >= 3 && $params['осталось на складе'] >= 3){
+            $disc = 'Вы заказали '.$name.' в количетсве '.$params['количество заказано'].' штук, вам посчитана скидка 30% на эту позицию';
+            $discount3 = 3;
+        }
+       
         if($params['количество заказано'] <= $params['осталось на складе']){
             $balance = $balance+$params['количество заказано'];
-            $total_price = $total_price+$params['цена']*$params['количество заказано'] - $disc;
+            if($discount3) {
+                $total_price = $total_price+$params['цена']*$params['количество заказано']-($params['цена']*$params['количество заказано'])*$discount3/10;
+            }
+            else{
+                $total_price = $total_price+$params['цена']*$params['количество заказано']-($params['цена']*$params['количество заказано'])*substr($par_disc,7,1)/10;
+            }
         }
         else{
             $balance = $balance+$params['осталось на складе'];
-            $total_price = $total_price+$params['цена']*$params['осталось на складе'] - $disc;//вычитаем скидку
-        } 
-        $disc = $total_price*substr($par_disc,7,1)/10;  
-        if($name == 'игрушка детская велосипед' && $params['количество заказано'] >= 3 && $params['осталось на складе'] >= 3){
-            $discount3 = 'Вы заказали '.$name.' в количетсве '.$params['количество заказано'].' штук, вам посчитана скидка 30% на эту позицию';
-            $disc = 'Пока думаю';
-        }     
+            if($discount3) {
+              $total_price = $total_price+$params['цена']*$params['осталось на складе']-($params['цена']*$params['осталось на складе'])*$discount3/10;  
+            }
+            else {
+                $total_price = $total_price+$params['цена']*$params['осталось на складе']-($params['цена']*$params['осталось на складе'])*substr($par_disc,7,1)/10;
+            }
+        }      
     }
+    echo '</table>';
     echo "Итого:<br> Всего было заказано: ".count($basket)." наименований товара<br>";
 }
 parse_basket($bd);
