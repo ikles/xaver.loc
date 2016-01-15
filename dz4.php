@@ -35,9 +35,7 @@ echo '<table border=1><tr><td>Наименование</td><td>Цена за е�
     global $balances;
     global $total_price;
     global $prices;
-    global $product_out;
-    global $count_basket;
-    global $disc;
+    global $product_out;    
     foreach($bd as $name => $params){
         $price = $params['цена'];
         $ordered = $params['количество заказано'];
@@ -82,7 +80,7 @@ echo " Общее количество товара на складе: ".$balanc
 echo " Сумма заказа: ".$prices." руб.<br>";
 echo " Общая сумма заказа по наличию на складе с учетом всех скидок: ".$total_price." руб.<br>";
 echo'<h2>Скидки</h2>';
-echo $disc;
+if (isset($disc)) {echo $disc;}
 //Вычисление скидки
 function diskont($num){     
     $percent = substr($num,7,1)*10;
