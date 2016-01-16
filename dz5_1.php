@@ -19,8 +19,7 @@ $news = explode("\n", $news);
 
 $get = $_GET;
 // Функция вывода всего списка новостей.
-function all_news() {
-    global $news;
+function all_news($news) {
     foreach($news as $id => $new) {
         echo $new."<br>";
     }
@@ -28,17 +27,15 @@ function all_news() {
 
 // Функция вывода конкретной новости.
 
-function one_news() {
-    global $news;
-    global $get;
+function one_news($news,$get) {
     echo $news[$get['id']-1];
 }
 
 if (isset ($get['id']) &&  $get['id'] <= count($news)){
-    one_news();
+    one_news($news,$get);
 }
 elseif (isset ($get['id']) &&  $get['id'] > count($news)){
-    all_news();
+    all_news($news);
 }
 elseif (!empty($get) && !isset ($get['id'])) {
 header('Location: 404.php');

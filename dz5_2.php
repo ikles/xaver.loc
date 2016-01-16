@@ -31,8 +31,7 @@ $post = $_POST;
 
 echo "<br>";
 // Функция вывода всего списка новостей.
-function all_news() {
-    global $news;
+function all_news($news) {
     foreach($news as $id => $new) {
         echo $new."<br>";
     }
@@ -40,17 +39,15 @@ function all_news() {
 
 // Функция вывода конкретной новости.
 
-function one_news() {
-    global $news;
-    global $post;
+function one_news($news,$post) {
     echo $news[$post['id']-1];
 }
 
 if (isset ($post['id']) &&  $post['id'] <= count($news)){
-    one_news();
+    one_news($news,$post);
 }
 elseif (isset ($post['id']) &&  $post['id'] > count($news)){
-    all_news();
+    all_news($news);
 }
 elseif (!empty($post) && !isset ($post['id'])) {
 header('Location: 404.php');
