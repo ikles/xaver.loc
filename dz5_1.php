@@ -31,13 +31,13 @@ function one_news($news,$get) {
     echo $news[$get['id']-1];
 }
 
-if (isset ($get['id']) &&  $get['id'] <= count($news)){
+if (isset ($get['id']) &&  $get['id'] <= count($news) && $get['id'] > 0 && is_numeric($get['id'])){
     one_news($news,$get);
 }
-elseif (isset ($get['id']) &&  $get['id'] > count($news)){
+elseif (isset ($get['id']) &&  $get['id'] > count($news) && is_numeric($get['id'])){
     all_news($news);
 }
-elseif (!empty($get) && !isset ($get['id'])) {
+elseif (!empty($get) && !isset ($get['id']) or isset ($get['id']) && $get['id'] <= 0) {
 header('Location: 404.php');
 exit;
 }

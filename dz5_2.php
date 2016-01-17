@@ -1,19 +1,4 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-</head>
-<body>
-	<form method="post">
-		<input name="id" type="text">
-		<input type="submit">
-	</form>
-</body>
-</html>
-﻿<?php
-
+<?php
 //POST
 
 $news='Четыре новосибирские компании вошли в сотню лучших работодателей
@@ -26,10 +11,7 @@ $news='Четыре новосибирские компании вошли в с
 «Красный факел» пустит публику на ночные экскурсии за кулисы и по закоулкам столетнего здания
 Звезды телешоу «Голос» Наргиз Закирова и Гела Гуралиа споют в «Маяковском»';
 $news =  explode("\n", $news);
-
 $post = $_POST;
-
-echo "<br>";
 // Функция вывода всего списка новостей.
 function all_news($news) {
     foreach($news as $id => $new) {
@@ -43,13 +25,13 @@ function one_news($news,$post) {
     echo $news[$post['id']-1];
 }
 
-if (isset ($post['id']) &&  $post['id'] <= count($news)){
+if (isset ($post['id']) &&  $post['id'] <= count($news) && $post['id'] > 0 && is_numeric($post['id'])){
     one_news($news,$post);
 }
-elseif (isset ($post['id']) &&  $post['id'] > count($news)){
+elseif (isset ($post['id']) &&  $post['id'] > count($news) && is_numeric($post['id'])){
     all_news($news);
 }
-elseif (!empty($post) && !isset ($post['id'])) {
+elseif (!empty($post) && !isset ($post['id']) or isset ($post['id']) && $post['id'] <= 0) {
 header('Location: 404.php');
 exit;
 }
@@ -65,4 +47,19 @@ exit;
 // если параметр не был передан - выводить 404 ошибку
 // http://php.net/manual/ru/function.header.php
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+    <br><br>
+	<form method="post">
+		<input name="id" type="text">
+		<input type="submit">
+	</form>
+    
 
+</body>
+</html>
