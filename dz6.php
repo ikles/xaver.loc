@@ -51,7 +51,7 @@ if (validate($_POST) && !check_data()) {
                 </div>
                 <div>
                     <label for='allow_mails'> <input type='checkbox' value='1' 
-                        <?
+                        <?php
                         if (check_data()) {
                             if (isset($_SESSION['history'][$_GET['id']]['allow_mails']) && $_SESSION['history'][$_GET['id']]['allow_mails'] == 1) {
                                 echo " checked ";
@@ -265,5 +265,4 @@ if (check_data()) {
 <input type='radio' value='" . $number . "' name='private'>" . $prive . "</label>";
                         }
                     }
-                }
-                
+                }                
