@@ -1,28 +1,26 @@
 <?php
+session_start();
 error_reporting(E_ERROR | E_NOTICE | E_PARSE | E_WARNING);
 ini_set('display_errors', 1);
-session_start();
+//Проверка формы на заполненность всех полей
 if (validate($_POST) && !check_data()) {
-    $_SESSION['history'][] = $_POST;
-    $post = serialize($_SESSION['history']);
-    setcookie('history',$post, time()+3600*24*7);
-    print_arr($_SESSION['history']);
-} elseif (check_data() && isset($_POST['main_form_submit'])) {
-    $_SESSION['history'][$_GET['id']] = $_POST;
-    $post = serialize($_SESSION['history']);   
-    setcookie('history',$post, time()+3600*24*7);
+    if (isset ($_COOKIE['ads'])) {$ads = unserialize($_COOKIE['ads']);}//если в куке есть данные то 
+    $ads[] = $_POST;//добавление в массив из post   
+    setcookie('ads',serialize($ads), time()+3600*24*7);//создаем куку и добавляем в нее сериализированный массив
+} elseif (check_data() && isset($_POST['main_form_submit'])) {//при сохранении объявления
+    $ads = unserialize($_COOKIE['ads']); //Достать весь массив из куки
+    $ads[$_GET['id']] = $_POST; //Перезаписать данные в массив с определенным индексом который берется из get id
+    setcookie('ads',serialize($ads), time()+3600*24*7);//Сериализовать полученный массив и перезаписать куку ads новым массивом
 } elseif (isset($_GET['action']) && !isset($_POST['main_form_submit'])) {//если существует GET['action'] и при этом не нажата кнопка
-    if ($_GET['action'] == 'del') {
-        $id = $_GET['id'];
-        if (isset($_SESSION['history'][$id])) {
-            unset($_SESSION['history'][$id]);
-        }
-    } elseif ($_GET['action'] == 'show') {
-        $id = $_GET['id'];
-    }
+    $id = $_GET['id'];
+    $ads = unserialize($_COOKIE['ads']); //Достать весь массив из куки
+    if ($_GET['action'] == 'del' && isset($ads[$id])) {
+      unset($ads[$id]);
+      setcookie('ads',serialize($ads), time()+3600*24*7);//Сериализовать полученный массив и перезаписать куку ads новым массивом
 }
+}
+if (isset ($_COOKIE['ads'])) {print_arr(unserialize($_COOKIE['ads']));}
 ?>
-<html>
     <!DOCTYPE html>
     <html>
         <head>
@@ -38,9 +36,11 @@ if (validate($_POST) && !check_data()) {
                 <div>
                     <label for='fld_seller_name'><b id='your-name'>Ваше имя</b></label>
                     <input type='text' maxlength='40'  value='<?php
-                     if (check_data()) {
-                            echo check_cookie($_GET['id'], 'seller_name');                          
-                        }
+                    if (check_data()) {
+                        echo $_SESSION['history'][$_GET['id']]['seller_name'];
+                    } else {
+                        echo '';
+                    }
                     ?>' name='seller_name' id='fld_seller_name'>
                 </div>
                 <div>
@@ -67,10 +67,9 @@ if (validate($_POST) && !check_data()) {
                     </label> </div>
                 <div>
                     <label id='fld_phone_label' for='fld_phone'>Номер телефона</label>
-                    
                     <input type='text'  value='<?php
                         if (check_data()) {
-                            echo check_cookie($_GET['id'], 'phone');                          
+                            echo $_SESSION['history'][$_GET['id']]['phone'];
                         }
                         ?>' name='phone' id='fld_phone'>
                 </div>
@@ -90,16 +89,16 @@ if (validate($_POST) && !check_data()) {
                 <div id='f_title' class='form-row f_title'>
                     <label for='fld_title'>Название объявления</label>
                     <input type='text' maxlength='50' class='form-input-text-long' value='<?php
-                        if (check_data()) {
-                            echo check_cookie($_GET['id'], 'title');                          
-                        }
+if (check_data()) {
+     echo $_SESSION['history'][$_GET['id']]['title'];
+    }
 ?>' name='title' id='fld_title'>
                 </div>
                 <div>
                     <label for='fld_description'  id='js-description-label'>Описание объявления</label>
                     <textarea maxlength='3000' name='description' id='fld_description' class='form-input-textarea'><?php
-                         if (check_data()) {
-                            echo check_cookie($_GET['id'], 'description');                          
+                        if (check_data()) {
+                            echo $_SESSION['history'][$_GET['id']]['description'];
                         }
 ?></textarea>
                 </div>
@@ -107,9 +106,9 @@ if (validate($_POST) && !check_data()) {
                     <label id='price_lbl' for='fld_price'>Цена</label>
                     <input type='text' maxlength='9' value='
 <?php
-   if (check_data()) {
-                            echo check_cookie($_GET['id'], 'price');                          
-                        }
+if (check_data()) {
+    echo $_SESSION['history'][$_GET['id']]['price'];
+}
 ?>'
                            class='form-input-text-short' name='price' id='fld_price'>&nbsp;<span id='fld_price_title'>руб.</span>  
                 </div>
@@ -139,30 +138,16 @@ if (validate($_POST) && !check_data()) {
         <?php
         show_ads(); //Вывод объявлений
         if (check_data()) {
-            echo "<br><a href='/dz6_1.php'>Добавить новое объявление >></a><br>";
-        }
-        ?>
-        <?php 
-        if (isset($_COOKIE['history'])) {$post = unserialize($_COOKIE['history']);
-        print_arr($post);
+            echo "<br><a href='/dz6.php'>Добавить новое объявление >></a><br>";
         }
         ?>
         </body>
         <?php
 
-//Функция проверки существования куки и трансформирвания куки в массив
-        function check_cookie($get,$key) {
-        if (isset($_COOKIE['history'])) {
-        $post = unserialize($_COOKIE['history']);
-        return $post[$get][$key];
-        }
-        }
-        
 //Функция вывода таблицы с объявлениями
         function show_ads() {
-            if (isset($_COOKIE['history'])) {
-                $post = unserialize($_COOKIE['history']);
-                foreach ($post as $id => $value) {
+            if (isset($_SESSION['history'])) {
+                foreach ($_SESSION['history'] as $id => $value) {
                     echo "<a href=?action=show&id=" . $id . ">" . $value['title'] . "</a> | ";
                     echo $value['price'] . " руб. | ";
                     echo $value['seller_name'] . " | <a href=?action=del&id=" . $id . ">Удалить</a><br>";
@@ -282,4 +267,4 @@ if (validate($_POST) && !check_data()) {
 <input type='radio' value='" . $number . "' name='private'>" . $prive . "</label>";
                         }
                     }
-                }                
+                }
