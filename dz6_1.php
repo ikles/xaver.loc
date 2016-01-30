@@ -22,9 +22,6 @@ if (validate($_POST) && !check_data()) {
         setcookie('ads', serialize($ads), time() + 3600 * 24 * 7); //Сериализовать полученный массив и перезаписать куку ads новым массивом
     }
 }
-if (isset($_COOKIE['ads'])) {
-    print_arr(unserialize($_COOKIE['ads']));
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -115,8 +112,7 @@ if (isset($_COOKIE['ads'])) {
             </div>
             <div id='price_rw' class='form-row rl'>
                 <label id='price_lbl' for='fld_price'>Цена</label>
-                <input type='text' maxlength='9' value='
-                <?php
+                <input type='text' maxlength='9' value='<?php
                        if (check_data()) {
                            $ads = unserialize($_COOKIE['ads']);
                            echo $ads[$_GET['id']]['price'];
@@ -149,6 +145,7 @@ if (isset($_COOKIE['ads'])) {
                 </div>
             </div>
         </form>
+        <p></p>
 <?php
 show_ads(); //Вывод объявлений
 if (check_data()) {
