@@ -16,7 +16,7 @@ if (validate($_POST) && !check_data()) {
         unset($ads[$id]);
     }
 }
-setcookie('ads',serialize($ads), time()+3600*24*7);
+if (isset($ads)) {setcookie('ads',serialize($ads), time()+3600*24*7);}
 include 'template.php';
 show_ads(); //Вывод объявлений
 if (check_data()) {
