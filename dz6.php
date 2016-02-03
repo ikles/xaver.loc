@@ -8,14 +8,10 @@ if (validate($_POST) && !check_data()) {
 } elseif (check_data() && isset($_POST['main_form_submit'])) {
     $_SESSION['history'][$_GET['id']] = $_POST;
 } elseif (isset($_GET['action']) && !isset($_POST['main_form_submit'])) {//если существует GET['action'] и при этом не нажата кнопка
-    if ($_GET['action'] == 'del') {
-        $id = $_GET['id'];
-        if (isset($_SESSION['history'][$id])) {
-            unset($_SESSION['history'][$id]);
-        }
-    } elseif ($_GET['action'] == 'show') {
-        $id = $_GET['id'];
-    }
+    $id = $_GET['id'];  
+    if ($_GET['action'] == 'del' && isset($_SESSION['history'][$id])) {
+      unset($_SESSION['history'][$id]);
+}
 }
 ?>
 <html>

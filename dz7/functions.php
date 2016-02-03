@@ -2,13 +2,13 @@
 
 //Функция вывода таблицы с объявлениями
 function show_ads() {
-    if (isset($_COOKIE['ads'])) {
-        $ads = unserialize($_COOKIE['ads']);
+    global $ads;
+    if (isset($ads)) {
         foreach ($ads as $id => $value) {
             echo "<a href=?action=show&id=" . $id . ">" . $value['title'] . "</a> | ";
             echo $value['price'] . " руб. | ";
             echo $value['seller_name'] . " | <a href=?action=del&id=" . $id . ">Удалить</a><br>";
-        }
+        }    
     }
 }
 
@@ -48,9 +48,9 @@ function print_arr($a) {
 
 //Функция вывода города в форму
 function show_city_block() {
+    global $ads;
     $citys = array('641780' => 'Новосибирск', '641490' => 'Барабинск', '641510' => 'Бердск');
     if (check_data()) {
-        $ads = unserialize($_COOKIE['ads']);
         $gorod = $ads[$_GET['id']]['location_id'];
         ?>  
         <select title="Выберите Ваш город" name="location_id" id="region" class="form-input-select"> 
@@ -78,9 +78,9 @@ function show_city_block() {
 
 //Функция вывода категории в форму
     function show_category_block() {
+        global $ads;
         $category = array('24' => 'Квартиры', '23' => 'Комнаты', '25' => 'Дома, дачи, коттеджи');
         if (check_data()) {
-            $ads = unserialize($_COOKIE['ads']);
             $cat = $ads[$_GET['id']]['category_id'];
             ?>    
             <select title="Выберите категорию объявления" name="category_id" id="fld_category_id" class="form-input-select"> 
@@ -110,9 +110,9 @@ function show_city_block() {
 
 //Функция вывода Частное лицо/компания в форму
         function show_private_block() {
+            global $ads;
             $private = array('1' => 'Частное лицо', '0' => 'Компания');
             if (check_data()) {
-                $ads = unserialize($_COOKIE['ads']);
                 $pr = $ads[$_GET['id']]['private'];
                 foreach ($private as $number => $prive) {
                     if (isset($pr)) {
