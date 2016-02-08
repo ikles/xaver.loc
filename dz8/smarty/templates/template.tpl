@@ -86,6 +86,6 @@
     {/foreach}
 {/if}  
 
-{if (check_data())}
+{if (check_get_params())}
     <br><a href='index.php'>Добавить новое объявление >></a><br>
 {/if}

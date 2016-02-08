@@ -11,7 +11,7 @@ require($smarty_dir . 'libs/Smarty.class.php');
 $smarty = new Smarty(); //создаем новый объект смарти и запис в перемен
 
 $smarty->compile_check = true; //обращаемся к свойствам объекта чтобы их выставить
-$smarty->debugging = true; //дебаггер
+$smarty->debugging = false; //дебаггер
 
 $smarty->template_dir = $smarty_dir . 'templates';
 $smarty->compile_dir = $smarty_dir . 'templates_c';
@@ -44,7 +44,7 @@ function validate($post) {
 }
 
 //Функция проверки полей формы
-function check_data() {
+function check_get_params() {
     if (isset($_GET['action']) && $_GET['action'] == 'show' && isset($_GET['id'])) {
         return true;
     } else {
@@ -52,9 +52,9 @@ function check_data() {
     }
 }
 
-if (validate($_POST) && !check_data()) {
+if (validate($_POST) && !check_get_params()) {
     $ads[] = $_POST;
-} elseif (check_data() && isset($_POST['main_form_submit'])) {//при сохранении объявления
+} elseif (check_get_params() && isset($_POST['main_form_submit'])) {//при сохранении объявления
     $ads[$_GET['id']] = $_POST; //Перезаписать данные в массив с определенным индексом который берется из get id
 } elseif (isset($_GET['action']) && !isset($_POST['main_form_submit'])) {//если существует GET['action'] и при этом не нажата кнопка
     $id = $_GET['id'];
@@ -65,10 +65,8 @@ if (validate($_POST) && !check_data()) {
 if (isset($ads)) {
     file_put_contents('ads.html', serialize($ads));
 }
-if (isset($_GET['id'])) {
-    $get_id = $_GET['id'];
-}
-if (isset($get_id) && array_key_exists($get_id, $ads)) {
+
+if (isset($_GET['id']) && array_key_exists($_GET['id'], $ads)) {//проверка существует ли array_key_exists ключ в массиве
     $ad = $ads[$_GET['id']];
 } else {
     $ad = '';
@@ -78,13 +76,13 @@ if (isset($get_id) && array_key_exists($get_id, $ads)) {
 
 if (isset ($ads)) {$smarty->assign('ads', $ads);}
 
-if (check_data()) {
+if (check_get_params()) {
     $smarty->assign('ad', $ad);
 } else {
     $smarty->assign('ad', NULL);
 }
 
-if (check_data()) {
+if (check_get_params()) {
     $smarty->assign('id', $_GET['id']);
 }
 
