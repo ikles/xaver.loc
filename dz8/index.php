@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ERROR | E_NOTICE | E_PARSE | E_WARNING);
 ini_set('display_errors', 1);
-
+  
 $project_root = $_SERVER['DOCUMENT_ROOT'];
 $smarty_dir = $project_root . '/dz8/smarty/';
 
