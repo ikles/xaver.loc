@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
   
 $project_root = $_SERVER['DOCUMENT_ROOT'];
 $smarty_dir = $project_root . '/dz8/smarty/';
-
+//
 // put full path to Smarty.class.php
 require($smarty_dir . 'libs/Smarty.class.php');
 
