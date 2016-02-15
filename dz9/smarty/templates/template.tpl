@@ -85,7 +85,6 @@
         {$value.price} руб. | {$value.seller_name} | <a href=?action=del&id={$id}>Удалить</a><br>
     {/foreach}
 {/if}  
-
 {if (check_get_params())}
     <br><a href='index.php'>Добавить новое объявление >></a><br>
 {/if}
