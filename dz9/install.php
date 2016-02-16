@@ -86,5 +86,6 @@ if (check_form()) {
          mysql_query("INSERT INTO `private` (`private_id`, `private_value`) VALUES
                     ('1','Частное лицо'),
                     ('0','Компания')");
+         echo "<a href='index.php'>Перейти на сайт</a>";
 }
 
