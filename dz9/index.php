@@ -7,9 +7,10 @@ mysql_query("SET NAMES utf8");
 
 require('functions.php');
 
-getAds();
-add_up_del_ads();
-get_id_key_exists();
+add_up_del_ads();//добавление/обновление
+getAds();//показы списка
+delAds();//удаление объявления
+get_id_key_exists();//проверка на существование ключа
 
 if (isset ($ads)) {$smarty->assign('ads', $ads);}
 
