@@ -1,6 +1,7 @@
 <?
 error_reporting(E_ERROR | E_NOTICE | E_PARSE | E_WARNING);
 ini_set('display_errors', 1);
+phpinfo();
 echo "cell:" . ceil(4) . "<br>";
 echo "floor:" . floor(6.945) . "<br>";
 echo "floor:" . round(6.236) . "<br>";
