@@ -23,36 +23,11 @@ if (check_get_params()) {
     $smarty->assign('id', $_GET['id']);
 }
 
-$result2 = mysql_query("select * from citys");
-while ($city = mysql_fetch_assoc($result2)){
-    $citys[] = $city;
-}
-
-foreach($citys as $value){
-    $cities[$value['location_id']] = $value['city'];
-}
-//$smarty->assign('citys', array('641780' => 'Новосибирск', '641490' => 'Барабинск', '641510' => 'Бердск'));
+citys();
 $smarty->assign('citys',$cities);
-
-$result3 = mysql_query("select * from categories");
-while ($category = mysql_fetch_assoc($result3)){
-    $categories[] = $category;
-}
-
-foreach($categories as $value){
-    $categorys[$value['category_id']] = $value['category'];
-}
+categories();
 $smarty->assign('category',$categorys);
-//$smarty->assign('category', array('24' => 'Квартиры','23' => 'Комнаты','25' => 'Дома, дачи, коттеджи'));
-
-$result4 = mysql_query("select * from private");
-while ($private = mysql_fetch_assoc($result4)){
-    $privates[] = $private;
-}
-
-foreach($privates as $value){
-    $privats[$value['private_id']] = $value['private_value'];
-}
+private_val();
 $smarty->assign('private', $privats);
 
 if (isset ($last_id)) {$smarty->assign('last_id', $last_id);}

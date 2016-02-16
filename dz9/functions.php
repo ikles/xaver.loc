@@ -82,3 +82,36 @@ if (isset($_GET['id']) && array_key_exists($_GET['id'], $ads)) {
     $ad = '';
 }
 }
+
+function citys() {
+    global $cities;
+$result2 = mysql_query("select * from citys");
+while ($city = mysql_fetch_assoc($result2)){
+    $citys[] = $city;
+}
+foreach($citys as $value){
+    $cities[$value['location_id']] = $value['city'];
+}
+}
+
+function categories() {
+    global $categorys;
+$result3 = mysql_query("select * from categories");
+while ($category = mysql_fetch_assoc($result3)){
+    $categories[] = $category;
+}
+foreach($categories as $value){
+    $categorys[$value['category_id']] = $value['category'];
+}
+}
+
+function private_val() {
+    global $privats;
+$result4 = mysql_query("select * from private");
+while ($private = mysql_fetch_assoc($result4)){
+    $privates[] = $private;
+}
+foreach($privates as $value){
+    $privats[$value['private_id']] = $value['private_value'];
+}
+}
