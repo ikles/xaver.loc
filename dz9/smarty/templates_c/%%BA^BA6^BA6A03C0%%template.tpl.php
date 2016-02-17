@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.25-dev, created on 2016-02-15 13:29:37
+<?php /* Smarty version 2.6.25-dev, created on 2016-02-17 15:24:11
          compiled from template.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_options', 'template.tpl', 37, false),)), $this); ?>
@@ -9,12 +9,12 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_option
         <title>Форма</title>
     </head>
     <body> 
-        
+
         <h2>Форма добавление/изменения объявления</h2>
         <form  method='post'>  
             <div>
-<label class="form-label-radio"><input type="radio" name="private" <?php if ($this->_tpl_vars['ad']['private'] == 1): ?>checked=""<?php endif; ?>value="1">Частное лицо</label>
-<label class="form-label-radio"><input type="radio" name="private" <?php if ($this->_tpl_vars['ad']['private'] === '0'): ?>checked=""<?php endif; ?>value="0">Компания</label>  
+                <label class="form-label-radio"><input type="radio" name="private" <?php if ($this->_tpl_vars['ad']['private'] == 1): ?>checked=""<?php endif; ?>value="1">Частное лицо</label>
+                <label class="form-label-radio"><input type="radio" name="private" <?php if ($this->_tpl_vars['ad']['private'] === '0'): ?>checked=""<?php endif; ?>value="0">Компания</label>  
             </div>
             <div>
                 <label for='fld_seller_name'><b id='your-name'>Ваше имя</b></label>
@@ -28,9 +28,9 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_option
             </div>
             <div>
                 <label for='allow_mails'> <input type='checkbox' value='1' 
-                        <?php if (( isset ( $this->_tpl_vars['ad']['allow_mails'] ) ) && $this->_tpl_vars['ad']['allow_mails'] == 1): ?>
-                            checked=""
-                        <?php endif; ?>
+                                                 <?php if (( isset ( $this->_tpl_vars['ad']['allow_mails'] ) ) && $this->_tpl_vars['ad']['allow_mails'] == 1): ?>
+                                                     checked=""
+                                                 <?php endif; ?>
                                                  name='allow_mails' id='allow_mails' >
                     <span class='form-text-checkbox'>Я не хочу получать вопросы по объявлению по e-mail</span> 
                 </label> </div>
@@ -41,12 +41,12 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_option
             </div>
             <div id='f_location_id'>
                 <label for="region">Город</label>
-                        <?php echo smarty_function_html_options(array('name' => 'location_id','options' => $this->_tpl_vars['citys'],'selected' => $this->_tpl_vars['ad']['location_id']), $this);?>
+                <?php echo smarty_function_html_options(array('name' => 'location_id','options' => $this->_tpl_vars['citys'],'selected' => $this->_tpl_vars['ad']['location_id']), $this);?>
  
             </div>
             <div>
                 <label for='fld_category_id'>Категория</label>
-                       <?php echo smarty_function_html_options(array('name' => 'category_id','options' => $this->_tpl_vars['category'],'selected' => $this->_tpl_vars['ad']['category_id']), $this);?>
+                <?php echo smarty_function_html_options(array('name' => 'category_id','options' => $this->_tpl_vars['category'],'selected' => $this->_tpl_vars['ad']['category_id']), $this);?>
  
             </div>
             <div style='display: none;' id='params' class='form-row form-row-required'>
@@ -90,19 +90,19 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_option
             </div>
         </form>
         <p></p>
-        <?php if (( isset ( $this->_tpl_vars['ads'] ) )): ?>
-    <?php $_from = $this->_tpl_vars['ads']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+                <?php if (( isset ( $this->_tpl_vars['ads'] ) )): ?>
+            <?php $_from = $this->_tpl_vars['ads']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['id'] => $this->_tpl_vars['value']):
 ?>
-        <a href=?action=show&id=<?php echo $this->_tpl_vars['id']; ?>
+                <a href=?action=show&id=<?php echo $this->_tpl_vars['id']; ?>
 ><?php echo $this->_tpl_vars['value']['title']; ?>
 </a> |
-        <?php echo $this->_tpl_vars['value']['price']; ?>
+                <?php echo $this->_tpl_vars['value']['price']; ?>
  руб. | <?php echo $this->_tpl_vars['value']['seller_name']; ?>
  | <a href=?action=del&id=<?php echo $this->_tpl_vars['id']; ?>
 >Удалить</a><br>
-    <?php endforeach; endif; unset($_from); ?>
-<?php endif; ?>  
-<?php if (( check_get_params ( ) )): ?>
-    <br><a href='index.php'>Добавить новое объявление >></a><br>
-<?php endif; ?>
+            <?php endforeach; endif; unset($_from); ?>
+        <?php endif; ?>  
+        <?php if (( check_get_params ( ) )): ?>
+            <br><a href='index.php'>Добавить новое объявление >></a><br>
+        <?php endif; ?>

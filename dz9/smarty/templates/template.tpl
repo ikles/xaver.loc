@@ -5,12 +5,12 @@
         <title>Форма</title>
     </head>
     <body> 
-        
+
         <h2>Форма добавление/изменения объявления</h2>
         <form  method='post'>  
             <div>
-<label class="form-label-radio"><input type="radio" name="private" {if $ad.private eq 1}checked=""{/if}value="1">Частное лицо</label>
-<label class="form-label-radio"><input type="radio" name="private" {if $ad.private === "0"}checked=""{/if}value="0">Компания</label>  
+                <label class="form-label-radio"><input type="radio" name="private" {if $ad.private eq 1}checked=""{/if}value="1">Частное лицо</label>
+                <label class="form-label-radio"><input type="radio" name="private" {if $ad.private === "0"}checked=""{/if}value="0">Компания</label>  
             </div>
             <div>
                 <label for='fld_seller_name'><b id='your-name'>Ваше имя</b></label>
@@ -22,9 +22,9 @@
             </div>
             <div>
                 <label for='allow_mails'> <input type='checkbox' value='1' 
-                        {if (isset ($ad.allow_mails)) && $ad.allow_mails eq 1}
-                            checked=""
-                        {/if}
+                                                 {if (isset ($ad.allow_mails)) && $ad.allow_mails eq 1}
+                                                     checked=""
+                                                 {/if}
                                                  name='allow_mails' id='allow_mails' >
                     <span class='form-text-checkbox'>Я не хочу получать вопросы по объявлению по e-mail</span> 
                 </label> </div>
@@ -34,11 +34,11 @@
             </div>
             <div id='f_location_id'>
                 <label for="region">Город</label>
-                        {html_options name=location_id options=$citys selected=$ad.location_id} 
+                {html_options name=location_id options=$citys selected=$ad.location_id} 
             </div>
             <div>
                 <label for='fld_category_id'>Категория</label>
-                       {html_options name=category_id options=$category selected=$ad.category_id} 
+                {html_options name=category_id options=$category selected=$ad.category_id} 
             </div>
             <div style='display: none;' id='params' class='form-row form-row-required'>
                 <label class='form-label '>Выберите параметры</label>
@@ -79,12 +79,12 @@
         </form>
         <p></p>
         {*Вывод таблицы с объявлениями*}
-{if (isset($ads))}
-    {foreach from=$ads key=id item=value}
-        <a href=?action=show&id={$id}>{$value.title}</a> |
-        {$value.price} руб. | {$value.seller_name} | <a href=?action=del&id={$id}>Удалить</a><br>
-    {/foreach}
-{/if}  
-{if (check_get_params())}
-    <br><a href='index.php'>Добавить новое объявление >></a><br>
-{/if}
+        {if (isset($ads))}
+            {foreach from=$ads key=id item=value}
+                <a href=?action=show&id={$id}>{$value.title}</a> |
+                {$value.price} руб. | {$value.seller_name} | <a href=?action=del&id={$id}>Удалить</a><br>
+            {/foreach}
+        {/if}  
+        {if (check_get_params())}
+            <br><a href='index.php'>Добавить новое объявление >></a><br>
+        {/if}
