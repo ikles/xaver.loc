@@ -43,13 +43,13 @@ if (check_form()) {
         mysqli_query($db,"DROP TABLE IF EXISTS `ads`");
         mysqli_query($db,"CREATE TABLE `ads` (
                     `id` int(11) NOT NULL AUTO_INCREMENT,
-                    `private` varchar(1) NOT NULL,
+                    `private` tinyint(4) NOT NULL,
                     `seller_name` varchar(10) NOT NULL,
                     `email` varchar(15) NOT NULL,
-                    `allow_mails` varchar(1) NOT NULL,
+                    `allow_mails` tinyint(4) NOT NULL,
                     `phone` varchar(12) NOT NULL,
-                    `location_id` varchar(10) NOT NULL,
-                    `category_id` varchar(3) NOT NULL,
+                    `location_id` int(11) NOT NULL,
+                    `category_id` int(11) NOT NULL,
                     `title` varchar(30) NOT NULL,
                     `description` varchar(255) NOT NULL,
                     `price` varchar(10) NOT NULL,
@@ -57,8 +57,8 @@ if (check_form()) {
                   ) ENGINE=MyISAM DEFAULT CHARSET=utf8");
         
         mysqli_query($db,"INSERT INTO `ads` (`id`, `private`, `seller_name`, `email`, `allow_mails`, `phone`, `location_id`, `category_id`, `title`, `description`, `price`) VALUES
-                    (1,'1','Иван','34@ya.ru','1','79998887766','641490','23','Квартира 34 комнаты','Квартира 4 комнаты в центре','3500000'),
-                    (8,'1','Альберт','ikles.ru@ya.ru','0','35','641490','24','Собака','Собака 222','35')");
+                   (34,1,'4654','4446',1,'464',641490,25,'4564','4465','44'),
+                   (36,1,'464','446',1,'464',641780,24,'4664','4646','4664')");
         mysqli_query($db,"DROP TABLE IF EXISTS `categories`");
         mysqli_query($db,"CREATE TABLE `categories` (
                     `category_id` varchar(3) NOT NULL,
@@ -78,13 +78,6 @@ if (check_form()) {
                     ('641490','Барабинск'),
                     ('641510','Бердск')");
          mysqli_query($db,"DROP TABLE IF EXISTS `private`");
-         mysqli_query($db,"CREATE TABLE `private` (
-                    `private_id` varchar(1) NOT NULL,
-                    `private_value` varchar(15) NOT NULL
-                  ) ENGINE=MyISAM DEFAULT CHARSET=utf8");
-         mysqli_query($db,"INSERT INTO `private` (`private_id`, `private_value`) VALUES
-                    ('1','Частное лицо'),
-                    ('0','Компания')");
          echo "<a href='index.php'>Перейти на сайт</a>";
 }
 
