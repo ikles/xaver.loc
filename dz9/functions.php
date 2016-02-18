@@ -1,5 +1,4 @@
 <?php
-
 // Добавление/обновление/удаление объявления
 function add_up_del_ads() {
     global $ads;
@@ -37,7 +36,6 @@ function delAds() {
 
 function getAds() {
     $insert_sql = "select ads.id,private,seller_name,email,allow_mails,phone,ads.location_id,ads.category_id,title,description,price,categories.category_id as categories_category_id,citys.location_id as citys_location_id,category,city from ads left join categories on (ads.category_id=categories.category_id) left join citys on (ads.location_id=citys.location_id)";
-
     $result = mysql_query($insert_sql);
     while ($row = mysql_fetch_assoc($result)) {
         global $ads;
@@ -89,24 +87,18 @@ function get_id_key_exists() {
     }
 }
 
-function citys() {
-    global $cities;
+function getCitys() {
     $result2 = mysql_query("select * from citys");
     while ($city = mysql_fetch_assoc($result2)) {
-        $citys[] = $city;
+        $citys[$city['location_id']] = $city['city'];
     }
-    foreach ($citys as $value) {
-        $cities[$value['location_id']] = $value['city'];
-    }
+    return $citys;
 }
 
-function categories() {
-    global $categorys;
+function getCategories() {
     $result3 = mysql_query("select * from categories");
     while ($category = mysql_fetch_assoc($result3)) {
-        $categories[] = $category;
+        $categories[$category['category_id']] = $category['category'];
     }
-    foreach ($categories as $value) {
-        $categorys[$value['category_id']] = $value['category'];
-    }
+    return $categories;
 }
