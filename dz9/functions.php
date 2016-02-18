@@ -1,7 +1,6 @@
 <?php
-// Добавление/обновление/удаление объявления
+// Добавление/обновление объявления
 function add_up_del_ads() {
-    global $ads;
     if (validate($_POST) && !check_get_params()) {//если заполнена форма и гет параметров нет
         //реализовать добавление объявления в базу
         if (!isset($_POST['allow_mails'])) {
@@ -21,10 +20,7 @@ VALUES ('$_POST[private]', '$_POST[seller_name]','$_POST[email]','$_POST[allow_m
     }
 }
 
-function delAds() {
-    global $id;
-    global $ads;
-    //print_arr($ads);
+function delAds($ads,$id) {
     if (isset($_GET['action']) && !isset($_POST['main_form_submit'])) {//если существует GET['action'] и при этом не нажата кнопка
         $id = $_GET['id'];
         if ($_GET['action'] == 'del' && isset($ads[$id])) {
@@ -32,15 +28,16 @@ function delAds() {
             mysql_query("delete from ads where id = $_GET[id]");
         }
     }
+    return $ads;
 }
 
 function getAds() {
     $insert_sql = "select ads.id,private,seller_name,email,allow_mails,phone,ads.location_id,ads.category_id,title,description,price,categories.category_id as categories_category_id,citys.location_id as citys_location_id,category,city from ads left join categories on (ads.category_id=categories.category_id) left join citys on (ads.location_id=citys.location_id)";
     $result = mysql_query($insert_sql);
-    while ($row = mysql_fetch_assoc($result)) {
-        global $ads;
+    while ($row = mysql_fetch_assoc($result)) {        
         $ads[$row['id']] = $row;
     }
+    if (isset($ads)) {return $ads;}
 }
 
 //Функция проверки формы и сохраниение в сессию
@@ -77,14 +74,13 @@ function print_arr($a) {
 }
 
 //проверка существует ли array_key_exists ключ в массиве
-function get_id_key_exists() {
-    global $ad;
-    global $ads;
+function get_id_key_exists($ads) {
     if (isset($_GET['id']) && isset($ads) && array_key_exists($_GET['id'], $ads)) {
         $ad = $ads[$_GET['id']];
     } else {
         $ad = '';
     }
+    return $ad;
 }
 
 function getCitys() {

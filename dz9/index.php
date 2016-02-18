@@ -8,10 +8,16 @@ mysql_query("SET NAMES utf8");
 
 require('functions.php');
 
+if (check_get_params()) {
+    $id = $_GET['id'];
+    $smarty->assign('id', $_GET['id']);
+}
+else {$id = '';}
+
 add_up_del_ads(); //добавление/обновление
-getAds(); //показы списка
-delAds(); //удаление объявления
-get_id_key_exists(); //проверка на существование ключа
+$ads = getAds(); //показы списка
+$ads = delAds($ads,$id); //удаление объявления
+$ad = get_id_key_exists($ads); //проверка на существование ключа
 
 if (isset($ads)) {
     $smarty->assign('ads', $ads);
@@ -21,10 +27,6 @@ if (check_get_params()) {
     $smarty->assign('ad', $ad);
 } else {
     $smarty->assign('ad', NULL);
-}
-
-if (check_get_params()) {
-    $smarty->assign('id', $_GET['id']);
 }
 
 $smarty->assign('citys', getCitys());
