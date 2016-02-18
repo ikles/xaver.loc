@@ -26,10 +26,8 @@ if (check_get_params()) {
     $smarty->assign('id', $_GET['id']);
 }
 
-citys();
-$smarty->assign('citys', $cities);
-categories();
-$smarty->assign('category', $categorys);
+$smarty->assign('citys', getCitys($db));
+$smarty->assign('category', getCategories($db));
 
 if (isset($last_id)) {
     $smarty->assign('last_id', $last_id);

@@ -1,5 +1,4 @@
 <?php
-
 // Добавление/обновление/удаление объявления
 function add_up_del_ads() {
     global $ads;
@@ -91,26 +90,18 @@ function get_id_key_exists() {
     }
 }
 
-function citys() {
-    global $db;
-    global $cities;
+function getCitys($db) {
     $result2 = mysqli_query($db,"select * from citys");
     while ($city = mysqli_fetch_assoc($result2)) {
-        $citys[] = $city;
+        $citys[$city['location_id']] = $city['city'];
     }
-    foreach ($citys as $value) {
-        $cities[$value['location_id']] = $value['city'];
-    }
+    return $citys;
 }
 
-function categories() {
-    global $db;
-    global $categorys;
+function getCategories($db) {
     $result3 = mysqli_query($db,"select * from categories");
     while ($category = mysqli_fetch_assoc($result3)) {
-        $categories[] = $category;
+        $categories[$category['category_id']] = $category['category'];
     }
-    foreach ($categories as $value) {
-        $categorys[$value['category_id']] = $value['category'];
-    }
+    return $categories;
 }
