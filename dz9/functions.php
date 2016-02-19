@@ -1,6 +1,28 @@
 <?php
-// Добавление/обновление объявления
-function add_up_del_ads() {
+
+// Добавление объявления
+function add_ads(){   
+        //реализовать добавление объявления в базу
+        if (!isset($_POST['allow_mails'])) {
+            $_POST['allow_mails'] = "0";
+        }
+        $new_ad = "insert into `ads` (`private`, `seller_name`, `email`, `allow_mails`,`phone`,`location_id`,`category_id`,`title`,`description`,`price`)
+VALUES ('$_POST[private]', '$_POST[seller_name]','$_POST[email]','$_POST[allow_mails]','$_POST[phone]','$_POST[location_id]','$_POST[category_id]','$_POST[title]','$_POST[description]','$_POST[price]')";
+        mysql_query($new_ad);
+
+}
+
+// обновление объявления
+function up_ads() {
+        //перезаписать объявление в базу
+        if (!isset($_POST['allow_mails'])) {
+            $_POST['allow_mails'] = "0";
+        }
+        $up_ad = "update ads set private='$_POST[private]', seller_name='$_POST[seller_name]', email='$_POST[email]', allow_mails='$_POST[allow_mails]', phone='$_POST[phone]', location_id='$_POST[location_id]', category_id='$_POST[category_id]', title='$_POST[title]', description='$_POST[description]', price='$_POST[price]' where id = $_GET[id]";
+        mysql_query($up_ad) or die(mysql_error());
+    }
+
+/*function add_up_ads() {
     if (validate($_POST) && !check_get_params()) {//если заполнена форма и гет параметров нет
         //реализовать добавление объявления в базу
         if (!isset($_POST['allow_mails'])) {
@@ -18,7 +40,7 @@ VALUES ('$_POST[private]', '$_POST[seller_name]','$_POST[email]','$_POST[allow_m
         $up_ad = "update ads set private='$_POST[private]', seller_name='$_POST[seller_name]', email='$_POST[email]', allow_mails='$_POST[allow_mails]', phone='$_POST[phone]', location_id='$_POST[location_id]', category_id='$_POST[category_id]', title='$_POST[title]', description='$_POST[description]', price='$_POST[price]' where id = $_GET[id]";
         mysql_query($up_ad) or die(mysql_error());
     }
-}
+}*/
 
 function delAds($ads,$id) {
     if (isset($_GET['action']) && !isset($_POST['main_form_submit'])) {//если существует GET['action'] и при этом не нажата кнопка

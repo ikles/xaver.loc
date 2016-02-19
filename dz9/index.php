@@ -14,7 +14,13 @@ if (check_get_params()) {
 }
 else {$id = '';}
 
-add_up_del_ads(); //добавление/обновление
+if (validate($_POST) && !check_get_params()){ //если заполнена форма и гет параметров нет
+    add_ads();
+}
+elseif (check_get_params() && isset($_POST['main_form_submit'])) {//при сохранении объявления
+    up_ads();
+}
+
 $ads = getAds(); //показы списка
 $ads = delAds($ads,$id); //удаление объявления
 $ad = get_id_key_exists($ads); //проверка на существование ключа

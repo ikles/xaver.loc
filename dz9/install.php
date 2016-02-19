@@ -81,4 +81,3 @@ if (check_form()) {
          mysql_query("DROP TABLE IF EXISTS `private`");    
          echo "<a href='index.php'>Перейти на сайт</a>";
 }
-
