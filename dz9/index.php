@@ -21,8 +21,8 @@ elseif (check_get_params() && isset($_POST['main_form_submit'])) {//при со�
     up_ads();
 }
 
-$ads = getAds(); //показы списка
 $ads = delAds($ads,$id); //удаление объявления
+$ads = getAds(); //показы списка
 $ad = get_id_key_exists($ads); //проверка на существование ключа
 
 if (isset($ads)) {
