@@ -1,35 +1,29 @@
 <?php
-
 // Добавление объявления
-function add_ads(){   
+function add_ads($post){   
         //реализовать добавление объявления в базу
-        if (!isset($_POST['allow_mails'])) {
-            $_POST['allow_mails'] = "0";
+        if (!isset($post['allow_mails'])) {
+            $post['allow_mails'] = "0";
         }
         $new_ad = "insert into `ads` (`private`, `seller_name`, `email`, `allow_mails`,`phone`,`location_id`,`category_id`,`title`,`description`,`price`)
-VALUES ('$_POST[private]', '$_POST[seller_name]','$_POST[email]','$_POST[allow_mails]','$_POST[phone]','$_POST[location_id]','$_POST[category_id]','$_POST[title]','$_POST[description]','$_POST[price]')";
+VALUES ('$post[private]', '$post[seller_name]','$post[email]','$post[allow_mails]','$post[phone]','$post[location_id]','$post[category_id]','$post[title]','$post[description]','$post[price]')";
         mysql_query($new_ad);
 
 }
 
 // обновление объявления
-function up_ads() {
+function up_ads($post) {
         //перезаписать объявление в базу
-        if (!isset($_POST['allow_mails'])) {
-            $_POST['allow_mails'] = "0";
+        if (!isset($post['allow_mails'])) {
+            $post['allow_mails'] = "0";
         }
-        $up_ad = "update ads set private='$_POST[private]', seller_name='$_POST[seller_name]', email='$_POST[email]', allow_mails='$_POST[allow_mails]', phone='$_POST[phone]', location_id='$_POST[location_id]', category_id='$_POST[category_id]', title='$_POST[title]', description='$_POST[description]', price='$_POST[price]' where id = $_GET[id]";
+        $up_ad = "update ads set private='$post[private]', seller_name='$post[seller_name]', email='$post[email]', allow_mails='$post[allow_mails]', phone='$post[phone]', location_id='$post[location_id]', category_id='$post[category_id]', title='$post[title]', description='$post[description]', price='$post[price]' where id = $_GET[id]";
         mysql_query($up_ad) or die(mysql_error());
     }
 
-function delAds($ads,$id) {
-    if (isset($_GET['action']) && !isset($_POST['main_form_submit'])) {//если существует GET['action'] и при этом не нажата кнопка
-        $id = $_GET['id'];
-        if ($_GET['action'] == 'del' && isset($ads[$id])) {
-            mysql_query("delete from ads where id = $_GET[id]");
-        }
-    }
-    return $ads;
+function delAds($id) {
+        $id = intval($id);
+        mysql_query("delete from ads where id = ".$id);
 }
 
 function getAds() {
@@ -72,16 +66,6 @@ function print_arr($a) {
     echo"<pre>";
     print_r($a);
     echo"</pre>";
-}
-
-//проверка существует ли array_key_exists ключ в массиве
-function get_id_key_exists($ads) {
-    if (isset($_GET['id']) && isset($ads) && array_key_exists($_GET['id'], $ads)) {
-        $ad = $ads[$_GET['id']];
-    } else {
-        $ad = '';
-    }
-    return $ad;
 }
 
 function getCitys() {
