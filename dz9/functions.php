@@ -54,8 +54,8 @@ function validate($post) {
 }
 
 //Функция проверки полей формы
-function check_get_params() {
-    if (isset($_GET['action']) && $_GET['action'] == 'show' && isset($_GET['id'])) {
+function check_get_params($get) {
+    if (isset($get['action']) && $get['action'] == 'show' && isset($get['id'])) {
         return true;
     } else {
         return false;

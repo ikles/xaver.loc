@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.25-dev, created on 2016-02-17 15:24:11
+<?php /* Smarty version 2.6.25-dev, created on 2016-02-21 03:19:36
          compiled from template.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_options', 'template.tpl', 37, false),)), $this); ?>
@@ -103,6 +103,6 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'html_option
 >Удалить</a><br>
             <?php endforeach; endif; unset($_from); ?>
         <?php endif; ?>  
-        <?php if (( check_get_params ( ) )): ?>
+        <?php if (( check_get_params ( $_GET ) )): ?>
             <br><a href='index.php'>Добавить новое объявление >></a><br>
         <?php endif; ?>

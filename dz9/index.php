@@ -7,16 +7,16 @@ mysql_query("SET NAMES utf8");
 
 require('functions.php');
 
-if (check_get_params()) {
+if (check_get_params($_GET)) {
     $id = $_GET['id'];
     $smarty->assign('id', $_GET['id']);
 } else {
     $id = '';
 }
 
-if (validate($_POST) && !check_get_params()) { //если заполнена форма и гет параметров нет
+if (validate($_POST) && !check_get_params($_GET)) { //если заполнена форма и гет параметров нет
     add_ads($_POST);
-} elseif (check_get_params() && isset($_POST['main_form_submit'])) {//при сохранении объявления
+} elseif (check_get_params($_GET) && isset($_POST['main_form_submit'])) {//при сохранении объявления
     up_ads($_POST);
 }
 
@@ -36,7 +36,7 @@ if (isset($ads)) {
     $smarty->assign('ads', $ads);
 }
 
-if (check_get_params()) {
+if (check_get_params($_GET)) {
     $smarty->assign('ad', $ad);
 } else {
     $smarty->assign('ad', NULL);
